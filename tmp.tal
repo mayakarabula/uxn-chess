@@ -1,0 +1,498 @@
+|0100
+  ;L.mouse.hook #90 DEO2
+  ;L.screen.hook #20 DEO2
+  LIT2r 0000 main_ POP2r BRK
+  @L.screen.hook LIT2r 0000 on_screen_ POP2 POP2r BRK
+  @L.mouse.hook LIT2r 0000 on_mouse_ POP2 POP2r BRK
+( bss )
+@TARGET_SELECT_Y_ $2
+@ORIGIN_SELECT_y_ $2
+( data )
+@tile_background_
+  00 00 00 00 00 00 00 00
+@tiles_
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+@selected_
+  55 aa 55 aa 55 aa 55 aa
+@mouse_
+  00 00 10 38 10 00 00 00
+@pieces_images_
+  00 00 00 00 00 00 00 00 18 3c 3c 18 18 18 7e ff
+  db ff 7e 3c 3c 3c 7e ff 04 1e 2f 7f 1e 1c 3e 7f
+  18 3c 3c 18 3c 18 3c 7e 00 99 db db ff 7e 3c 7e
+  18 3c 7e db 7e 7e 3c 7e
+@SELECTED_Y_
+  0009
+@SELECTED_X_
+  0009
+@IS_WHITE_TURN_
+  0001
+@TARGET_SELECT_X_
+  ffff
+@ORIGIN_SELECT_X_
+  ffff
+@wSize_
+  00a0
+( text )
+@sdiv
+    OVR #80 AND ?&b_neg  &b_pos    OVR2 POP #80 AND ?&a_neg_b_pos    DIV2 JMP2r  &a_neg_b_pos    SWP2 #0000 SWP2 SUB2 SWP2 DIV2 #0000 SWP2 SUB2 JMP2r
+  &b_neg    #0000 SWP2 SUB2 OVR2 POP #80 AND ?&a_neg_b_neg    DIV2 #0000 SWP2 SUB2 JMP2r
+  &a_neg_b_neg    #0000 ROT2 SUB2 SWP2 DIV2 JMP2r
+
+@reset_ ( -- result* )
+    OVR2r LIT2r 0004 SUB2r #0000 STH2kr INC2 INC2 STA2
+
+  &begin.1
+    STH2kr INC2 INC2 LDA2 #8000 EOR2 #8008 LTH2 #00 EQU ?&break.1
+    #0000 STH2kr STA2
+
+  &begin.2
+    STH2kr LDA2 #8000 EOR2 #8008 LTH2 #00 EQU ?&break.2
+    STH2kr LDA2 #0002 OVR2 OVR2 sdiv/b_pos
+    MUL2 SUB2 ORA ?&false.5
+    STH2kr INC2 INC2 LDA2 #0002 OVR2 OVR2 sdiv/b_pos
+    MUL2 SUB2 ORA ?&false.5
+    #0001 !&end.5
+
+  &false.5
+    #0000
+
+  &end.5
+    ORA ?&true.4
+    #8000 STH2kr LDA2 #0002 OVR2 OVR2 sdiv/b_pos
+    MUL2 SUB2 #8000 EOR2 LTH2 #00 EQU ?&false.6
+    #8000 STH2kr INC2 INC2 LDA2 #0002 OVR2 OVR2 sdiv/b_pos
+    MUL2 SUB2 #8000 EOR2 LTH2 #00 EQU ?&false.6
+    #0001 !&end.6
+
+  &false.6
+    #0000
+
+  &end.6
+    ORA ?&true.4
+    #0000 !&end.4
+
+  &true.4
+    #0001
+
+  &end.4
+    ORA ?&then.3
+    #0000 !&end.3
+
+  &then.3
+    #0001
+
+  &end.3
+    ;tiles_ STH2kr INC2 INC2 LDA2 #0050 MUL2 ADD2 STH2kr LDA2 #000a MUL2 ADD2 #0004 ADD2 STA2
+    STH2kr LDA2 ;tiles_ STH2kr INC2 INC2 LDA2 #0050 MUL2 ADD2 STH2kr LDA2 #000a MUL2 ADD2 STA2
+    STH2kr INC2 INC2 LDA2 ;tiles_ STH2kr INC2 INC2 LDA2 #0050 MUL2 ADD2 STH2kr LDA2 #000a MUL2 ADD2 INC2 INC2 STA2
+    STH2kr LDA2 #0000 EQU2 #00 ORA ?&true.8
+    STH2kr LDA2 #0007 EQU2 #00 ORA ?&true.8
+    #0000 !&end.8
+
+  &true.8
+    #0001
+
+  &end.8
+    #0000 EQU2 ?&end.7
+    STH2kr INC2 INC2 LDA2 #0000 EQU2 #00 ORA ?&true.10
+    STH2kr INC2 INC2 LDA2 #0007 EQU2 #00 ORA ?&true.10
+    #0000 !&end.10
+
+  &true.10
+    #0001
+
+  &end.10
+    #0000 EQU2 ?&end.9
+    #0002 ;tiles_ STH2kr INC2 INC2 LDA2 #0050 MUL2 ADD2 STH2kr LDA2 #000a MUL2 ADD2 #0008 ADD2 STA2
+
+  &end.9
+    STH2kr INC2 INC2 LDA2 #0001 EQU2 #00 ORA ?&true.12
+    STH2kr INC2 INC2 LDA2 #0006 EQU2 #00 ORA ?&true.12
+    #0000 !&end.12
+
+  &true.12
+    #0001
+
+  &end.12
+    #0000 EQU2 ?&end.11
+    #0003 ;tiles_ STH2kr INC2 INC2 LDA2 #0050 MUL2 ADD2 STH2kr LDA2 #000a MUL2 ADD2 #0008 ADD2 STA2
+
+  &end.11
+    STH2kr INC2 INC2 LDA2 #0002 EQU2 #00 ORA ?&true.14
+    STH2kr INC2 INC2 LDA2 #0005 EQU2 #00 ORA ?&true.14
+    #0000 !&end.14
+
+  &true.14
+    #0001
+
+  &end.14
+    #0000 EQU2 ?&end.13
+    #0004 ;tiles_ STH2kr INC2 INC2 LDA2 #0050 MUL2 ADD2 STH2kr LDA2 #000a MUL2 ADD2 #0008 ADD2 STA2
+
+  &end.13
+    STH2kr INC2 INC2 LDA2 #0003 NEQ2 ?&end.15
+    #0005 ;tiles_ STH2kr INC2 INC2 LDA2 #0050 MUL2 ADD2 STH2kr LDA2 #000a MUL2 ADD2 #0008 ADD2 STA2
+
+  &end.15
+    STH2kr INC2 INC2 LDA2 #0004 NEQ2 ?&end.16
+    #0006 ;tiles_ STH2kr INC2 INC2 LDA2 #0050 MUL2 ADD2 STH2kr LDA2 #000a MUL2 ADD2 #0008 ADD2 STA2
+
+  &end.16
+
+  &end.7
+    STH2kr LDA2 #0001 EQU2 #00 ORA ?&true.18
+    STH2kr LDA2 #0006 EQU2 #00 ORA ?&true.18
+    #0000 !&end.18
+
+  &true.18
+    #0001
+
+  &end.18
+    #0000 EQU2 ?&end.17
+    #0001 ;tiles_ STH2kr INC2 INC2 LDA2 #0050 MUL2 ADD2 STH2kr LDA2 #000a MUL2 ADD2 #0008 ADD2 STA2
+
+  &end.17
+    STH2kr LDA2 #8000 EOR2 #8002 LTH2 ?&then.19
+    #0015 !&end.19
+
+  &then.19
+    #000f
+
+  &end.19
+    ;tiles_ STH2kr INC2 INC2 LDA2 #0050 MUL2 ADD2 STH2kr LDA2 #000a MUL2 ADD2 #0006 ADD2 STA2
+
+  &continue.2
+    STH2kr LDA2k INC2k ROT2 STA2
+    POP2 !&begin.2
+
+  &break.2
+
+  &continue.1
+    STH2kr INC2 INC2 LDA2k INC2k ROT2 STA2
+    POP2 !&begin.1
+
+  &break.1
+    #0000
+
+  &return
+    POP2r JMP2r
+
+@on_mouse_ ( -- result* )
+    OVR2r LIT2r 0010 SUB2r #92 DEI2 STH2kr #000e ADD2 STA2
+    #94 DEI2 STH2kr #000c ADD2 STA2
+    ;mouse_ #2c DEO2 STH2kr #000e ADD2 LDA2 #28 DEO2 STH2kr #000c ADD2 LDA2 #2a DEO2 #0f2f DEO #96 DEI #00 SWP #0001 NEQ2 ?&end.1
+    STH2kr #000e ADD2 LDA2 #0010 SUB2 #0010 sdiv/b_pos
+    STH2kr #000a ADD2 STA2
+    STH2kr #000c ADD2 LDA2 #0010 SUB2 #0010 sdiv/b_pos
+    STH2kr #0008 ADD2 STA2
+    #8000 ;ORIGIN_SELECT_X_ LDA2 #8000 EOR2 GTH2 #00 SWP #01 EOR #0000 EQU2 ?&false.2
+    #8000 ;ORIGIN_SELECT_y_ LDA2 #8000 EOR2 GTH2 #00 SWP #01 EOR #0000 EQU2 ?&false.2
+    #0001 !&end.2
+
+  &false.2
+    #0000
+
+  &end.2
+    STH2kr #0006 ADD2 STA2
+    #8000 ;TARGET_SELECT_X_ LDA2 #8000 EOR2 GTH2 #00 SWP #01 EOR #0000 EQU2 ?&false.3
+    #8000 ;TARGET_SELECT_Y_ LDA2 #8000 EOR2 GTH2 #00 SWP #01 EOR #0000 EQU2 ?&false.3
+    #0001 !&end.3
+
+  &false.3
+    #0000
+
+  &end.3
+    STH2kr #0004 ADD2 STA2
+    STH2kr #000a ADD2 LDA2 ;ORIGIN_SELECT_X_ LDA2 NEQ2 ?&false.4
+    STH2kr #0008 ADD2 LDA2 ;ORIGIN_SELECT_y_ LDA2 NEQ2 ?&false.4
+    #0001 !&end.4
+
+  &false.4
+    #0000
+
+  &end.4
+    STH2kr INC2 INC2 STA2
+    STH2kr #000a ADD2 LDA2 ;TARGET_SELECT_X_ LDA2 NEQ2 ?&false.5
+    STH2kr #0008 ADD2 LDA2 ;TARGET_SELECT_Y_ LDA2 NEQ2 ?&false.5
+    #0001 !&end.5
+
+  &false.5
+    #0000
+
+  &end.5
+    STH2kr STA2
+    ;IS_WHITE_TURN_ LDA2 #0001 NEQ2 ?&false.9
+    STH2kr #0004 ADD2 LDA2 #0000 EQU2 ?&false.9
+    #0001 !&end.9
+
+  &false.9
+    #0000
+
+  &end.9
+    #0000 EQU2 ?&false.8
+    ;tiles_ STH2kr #000a ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #0008 ADD2 LDA2 #000a MUL2 ADD2 #0006 ADD2 LDA2 #0015 NEQ2 #00 EQU ?&false.8
+    #0001 !&end.8
+
+  &false.8
+    #0000
+
+  &end.8
+    ORA ?&true.7
+    ;IS_WHITE_TURN_ LDA2 INC2 ORA ?&false.11
+    STH2kr #0004 ADD2 LDA2 #0000 EQU2 ?&false.11
+    #0001 !&end.11
+
+  &false.11
+    #0000
+
+  &end.11
+    #0000 EQU2 ?&false.10
+    ;tiles_ STH2kr #000a ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #0008 ADD2 LDA2 #000a MUL2 ADD2 #0006 ADD2 LDA2 #000f NEQ2 #00 EQU ?&false.10
+    #0001 !&end.10
+
+  &false.10
+    #0000
+
+  &end.10
+    ORA ?&true.7
+    #0000 !&end.7
+
+  &true.7
+    #0001
+
+  &end.7
+    #0000 EQU2 ?&end.6
+    #4218 DEO #0000 !&return
+
+  &end.6
+    STH2kr #0006 ADD2 LDA2 ORA ?&false.14
+    STH2kr #0004 ADD2 LDA2 ORA ?&false.14
+    #0001 !&end.14
+
+  &false.14
+    #0000
+
+  &end.14
+    ORA ?&true.13
+    STH2kr #0006 ADD2 LDA2 #0000 EQU2 ?&false.15
+    STH2kr #0004 ADD2 LDA2 #0000 EQU2 ?&false.15
+    #0001 !&end.15
+
+  &false.15
+    #0000
+
+  &end.15
+    ORA ?&true.13
+    #0000 !&end.13
+
+  &true.13
+    #0001
+
+  &end.13
+    ORA ?&then.12
+    STH2kr #0006 ADD2 LDA2 #0000 EQU2 ?&false.18
+    STH2kr #0004 ADD2 LDA2 ORA ?&false.18
+    #0001 !&end.18
+
+  &false.18
+    #0000
+
+  &end.18
+    #0000 EQU2 ?&false.17
+    STH2kr INC2 INC2 LDA2 ORA ?&false.17
+    #0001 !&end.17
+
+  &false.17
+    #0000
+
+  &end.17
+    #0000 EQU2 ?&end.16
+    #5418 DEO STH2kr #000a ADD2 LDA2 ;TARGET_SELECT_X_ STA2
+    STH2kr #0008 ADD2 LDA2 ;TARGET_SELECT_Y_ STA2
+    ;tiles_ ;ORIGIN_SELECT_X_ LDA2 #0050 MUL2 ADD2 ;ORIGIN_SELECT_y_ LDA2 #000a MUL2 ADD2 #0008 ADD2 LDA2 ;tiles_ STH2kr #000a ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #0008 ADD2 LDA2 #000a MUL2 ADD2 #0008 ADD2 STA2
+    ;tiles_ ;ORIGIN_SELECT_X_ LDA2 #0050 MUL2 ADD2 ;ORIGIN_SELECT_y_ LDA2 #000a MUL2 ADD2 #0006 ADD2 LDA2 ;tiles_ STH2kr #000a ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #0008 ADD2 LDA2 #000a MUL2 ADD2 #0006 ADD2 STA2
+    #0000 ;tiles_ ;ORIGIN_SELECT_X_ LDA2 #0050 MUL2 ADD2 ;ORIGIN_SELECT_y_ LDA2 #000a MUL2 ADD2 #0008 ADD2 STA2
+    ;IS_WHITE_TURN_ LDA2k #ffff MUL2 SWP2 STA2
+
+  &end.16
+    !&end.12
+
+  &then.12
+    #4f18 DEO STH2kr #000a ADD2 LDA2 ;ORIGIN_SELECT_X_ STA2
+    STH2kr #0008 ADD2 LDA2 ;ORIGIN_SELECT_y_ STA2
+    #ffff ;TARGET_SELECT_X_ STA2
+    #ffff ;TARGET_SELECT_Y_ STA2
+
+  &end.12
+
+  &end.1
+    #0000
+
+  &return
+    POP2r JMP2r
+
+@draw_board_ ( -- result* )
+    OVR2r LIT2r 000e SUB2r ;tile_background_ #2c DEO2 #0000 STH2kr #000c ADD2 STA2
+
+  &begin.1
+    STH2kr #000c ADD2 LDA2 #8000 EOR2 #8014 LTH2 #00 EQU ?&break.1
+    #0000 STH2kr #000a ADD2 STA2
+
+  &begin.2
+    STH2kr #000a ADD2 LDA2 #8000 EOR2 #8014 LTH2 #00 EQU ?&break.2
+    STH2kr #000c ADD2 LDA2 #30 SFT2 #28 DEO2 STH2kr #000a ADD2 LDA2 #30 SFT2 #2a DEO2 #022f DEO
+
+  &continue.2
+    STH2kr #000a ADD2 LDA2k INC2k ROT2 STA2
+    POP2 !&begin.2
+
+  &break.2
+
+  &continue.1
+    STH2kr #000c ADD2 LDA2k INC2k ROT2 STA2
+    POP2 !&begin.1
+
+  &break.1
+    #0000 STH2kr #0008 ADD2 STA2
+
+  &begin.3
+    STH2kr #0008 ADD2 LDA2 #8000 EOR2 #8008 LTH2 #00 EQU ?&break.3
+    #0000 STH2kr #0006 ADD2 STA2
+
+  &begin.4
+    STH2kr #0006 ADD2 LDA2 #8000 EOR2 #8008 LTH2 #00 EQU ?&break.4
+    STH2kr #0008 ADD2 LDA2 ;ORIGIN_SELECT_X_ LDA2 NEQ2 ?&false.6
+    STH2kr #0006 ADD2 LDA2 ;ORIGIN_SELECT_y_ LDA2 NEQ2 ?&false.6
+    #0001 !&end.6
+
+  &false.6
+    #0000
+
+  &end.6
+    ORA ?&true.5
+    STH2kr #0008 ADD2 LDA2 ;TARGET_SELECT_X_ LDA2 NEQ2 ?&false.7
+    STH2kr #0006 ADD2 LDA2 ;TARGET_SELECT_Y_ LDA2 NEQ2 ?&false.7
+    #0001 !&end.7
+
+  &false.7
+    #0000
+
+  &end.7
+    ORA ?&true.5
+    #0000 !&end.5
+
+  &true.5
+    #0001
+
+  &end.5
+    STH2kr #0004 ADD2 STA2
+    STH2kr #0004 ADD2 LDA2 ORA ?&then.8
+    ;tile_background_ #2c DEO2 !&end.8
+
+  &then.8
+    ;selected_ #2c DEO2
+
+  &end.8
+    #0000 STH2kr INC2 INC2 STA2
+
+  &begin.9
+    STH2kr INC2 INC2 LDA2 #8000 EOR2 #8002 LTH2 #00 EQU ?&break.9
+    #0000 STH2kr STA2
+
+  &begin.10
+    STH2kr LDA2 #8000 EOR2 #8002 LTH2 #00 EQU ?&break.10
+    STH2kr #0008 ADD2 LDA2 #40 SFT2 #0010 ADD2 STH2kr INC2 INC2 LDA2 #30 SFT2 ADD2 #28 DEO2 STH2kr #0006 ADD2 LDA2 #40 SFT2 #0010 ADD2 STH2kr LDA2 #30 SFT2 ADD2 #2a DEO2 ;tiles_ STH2kr #0008 ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #0006 ADD2 LDA2 #000a MUL2 ADD2 #0004 ADD2 LDA2 ORA ?&then.11
+    #0002 !&end.11
+
+  &then.11
+    #0008
+
+  &end.11
+    NIP #2f DEO
+
+  &continue.10
+    STH2kr LDA2k INC2k ROT2 STA2
+    POP2 !&begin.10
+
+  &break.10
+
+  &continue.9
+    STH2kr INC2 INC2 LDA2k INC2k ROT2 STA2
+    POP2 !&begin.9
+
+  &break.9
+    ;pieces_images_ ;tiles_ STH2kr #0008 ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #0006 ADD2 LDA2 #000a MUL2 ADD2 #0008 ADD2 LDA2 #000a OVR2 OVR2 sdiv/b_pos
+    MUL2 SUB2 #30 SFT2 ADD2 #2c DEO2 STH2kr #0008 ADD2 LDA2 #40 SFT2 #0014 ADD2 #28 DEO2 STH2kr #0006 ADD2 LDA2 #40 SFT2 #0014 ADD2 #2a DEO2 ;tiles_ STH2kr #0008 ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #0006 ADD2 LDA2 #000a MUL2 ADD2 #0006 ADD2 LDA2 NIP #2f DEO
+
+  &continue.4
+    STH2kr #0006 ADD2 LDA2k INC2k ROT2 STA2
+    POP2 !&begin.4
+
+  &break.4
+
+  &continue.3
+    STH2kr #0008 ADD2 LDA2k INC2k ROT2 STA2
+    POP2 !&begin.3
+
+  &break.3
+    #0000
+
+  &return
+    POP2r JMP2r
+
+@on_screen_ ( -- result* )
+    OVR2r draw_board_
+    POP2 on_mouse_
+    POP2 #0000
+
+  &return
+    POP2r JMP2r
+
+@main_ ( -- result* )
+    OVR2r #2ce9 #08 DEO2 #01c0 #0a DEO2 #2ce5 #0c DEO2 ;wSize_ LDA2 #22 DEO2 ;wSize_ LDA2 #24 DEO2 reset_
+    POP2 draw_board_
+    POP2 #0000
+
+  &return
+    POP2r JMP2r
