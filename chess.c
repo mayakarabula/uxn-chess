@@ -12,6 +12,7 @@ enum COLOR {
 enum PIECE_COLOR {
     WHITE_PIECE = 0x15,
     BLACK_PIECE = 0x0f,
+    EMPTY_PIECE = 0x99,
 };
 
 int ORIGIN_SELECT_X = -1;
@@ -35,7 +36,7 @@ enum PIECE_TYPE {
 };
 
 char pieces_images[7][8] = {
-    {}, // EMPTY
+    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }, // EMPTY
     {0x18, 0x3c, 0x3c, 0x18, 0x18, 0x18, 0x7e, 0xff},   // PAWN
     {0xdb, 0xff, 0x7e, 0x3c, 0x3c, 0x3c, 0x7e, 0xff},   // ROOK
     {0x4, 0x1e, 0x2f, 0x7f, 0x1e, 0x1c, 0x3e, 0x7f},    // KNIGHT
@@ -88,7 +89,12 @@ void reset(void) {
                 tiles[i][j].piece_type = PAWN;
             }
             
-            tiles[i][j].piece_color = j < 2 ? BLACK_PIECE : WHITE_PIECE;
+            if (j < 2) {
+                tiles[i][j].piece_color = BLACK_PIECE;
+            }
+            if (j > 5) {
+                tiles[i][j].piece_color = WHITE_PIECE;
+            }
         }
     }
 }
@@ -109,12 +115,117 @@ void on_mouse(void) {
         int is_same_origin_tile = pos_x == ORIGIN_SELECT_X && pos_y == ORIGIN_SELECT_y;
         int is_same_target_tile = pos_x == TARGET_SELECT_X && pos_y == TARGET_SELECT_Y;
 
+        // prevent moving a piece when it's not its turn
         if ((IS_WHITE_TURN == 1 && is_target_set && tiles[pos_x][pos_y].piece_color != WHITE_PIECE) ||
             IS_WHITE_TURN == -1 && is_target_set && tiles[pos_x][pos_y].piece_color != BLACK_PIECE) {
             putchar('B');
             return;
         }
 
+        // if the same color is selected origin is reassigned
+        if ((IS_WHITE_TURN == 1 && !is_target_set && is_origin_set && tiles[pos_x][pos_y].piece_color == WHITE_PIECE) ||
+            (IS_WHITE_TURN == -1 && !is_target_set && is_origin_set && tiles[pos_x][pos_y].piece_color == BLACK_PIECE)) {
+            if (tiles[pos_x][pos_y].piece_type != EMPTY) {
+                ORIGIN_SELECT_X = pos_x;
+                ORIGIN_SELECT_y = pos_y;
+            }
+            
+            return;
+        }
+
+        // rules
+        if (is_origin_set && !is_target_set) {
+            int legal_move = 0;
+            // pawn
+            if (tiles[ORIGIN_SELECT_X][ORIGIN_SELECT_y].piece_type == PAWN) {
+               if (tiles[ORIGIN_SELECT_X][ORIGIN_SELECT_y].piece_color == WHITE_PIECE) {
+                    // move
+                    if (pos_x == ORIGIN_SELECT_X) {
+                        if (pos_y == ORIGIN_SELECT_y -1 || (pos_y == ORIGIN_SELECT_y - 2 && ORIGIN_SELECT_y == 6)) {
+                            if (tiles[pos_x][pos_y].piece_type == EMPTY) {
+                                legal_move = 1;
+                            }
+                        }
+                    }
+                    // take
+                    if (pos_x == ORIGIN_SELECT_X -1 || pos_x == ORIGIN_SELECT_X + 1) {
+                        if (pos_y == ORIGIN_SELECT_y -1) {
+                            if (tiles[pos_x][pos_y].piece_color == BLACK_PIECE) {
+                                legal_move = 1;
+                            }
+                        }
+                    }
+                    // en pessant - to do
+                } else {
+                    // move
+                    if (pos_x == ORIGIN_SELECT_X) {
+                        if (pos_y == ORIGIN_SELECT_y + 1 || (pos_y == ORIGIN_SELECT_y + 2 && ORIGIN_SELECT_y == 1)) {
+                            if (tiles[pos_x][pos_y].piece_type == EMPTY) {
+                                legal_move = 1;
+                            }
+                        }
+                    }
+                    // take
+                    if (pos_x == ORIGIN_SELECT_X - 1 || pos_x == ORIGIN_SELECT_X + 1) {
+                        if (pos_y == ORIGIN_SELECT_y + 1) {
+                            if (tiles[pos_x][pos_y].piece_color == WHITE_PIECE) {
+                                legal_move = 1;
+                            }
+                        }
+                    }
+               }
+            }
+
+            if (tiles[ORIGIN_SELECT_X][ORIGIN_SELECT_y].piece_type == ROOK) {
+
+            }
+
+            if (tiles[ORIGIN_SELECT_X][ORIGIN_SELECT_y].piece_type == KNIGHT) {
+                // move and take
+                if (pos_y == ORIGIN_SELECT_y - 2 || pos_y == ORIGIN_SELECT_y + 2) {
+                    if (pos_x == ORIGIN_SELECT_X - 1 || pos_x == ORIGIN_SELECT_X + 1) {
+                        if (tiles[pos_x][pos_y].piece_type == EMPTY ||
+                            tiles[pos_x][pos_y].piece_color != tiles[ORIGIN_SELECT_X][ORIGIN_SELECT_y].piece_color) {
+                                legal_move = 1;
+                            }
+                    }
+                }
+                if (pos_y == ORIGIN_SELECT_y - 1 || pos_y == ORIGIN_SELECT_y + 1) {
+                    if (pos_x == ORIGIN_SELECT_X - 2 || pos_x == ORIGIN_SELECT_X + 2) {
+                        if (tiles[pos_x][pos_y].piece_type == EMPTY ||
+                            tiles[pos_x][pos_y].piece_color != tiles[ORIGIN_SELECT_X][ORIGIN_SELECT_y].piece_color) {
+                                legal_move = 1;
+                            }
+                    }
+                }
+            }
+
+            if (tiles[ORIGIN_SELECT_X][ORIGIN_SELECT_y].piece_type == BISHOP) {
+                
+            }
+
+            if (tiles[ORIGIN_SELECT_X][ORIGIN_SELECT_y].piece_type == QUEEN) {
+                
+            }
+
+            if (tiles[ORIGIN_SELECT_X][ORIGIN_SELECT_y].piece_type == KING) {
+                if (pos_x == ORIGIN_SELECT_X - 1 || pos_x == ORIGIN_SELECT_X + 1 || pos_x == ORIGIN_SELECT_X) {
+                    if (pos_y == ORIGIN_SELECT_y - 1 || pos_y == ORIGIN_SELECT_y + 1 || pos_y == ORIGIN_SELECT_y) {
+                        if (tiles[pos_x][pos_y].piece_type == EMPTY ||
+                            tiles[pos_x][pos_y].piece_color != tiles[ORIGIN_SELECT_X][ORIGIN_SELECT_y].piece_color) {
+                                legal_move = 1;
+                            }
+                    }
+                }
+            }
+
+            if (!legal_move) {
+                putchar('L');
+                return;
+            }
+        }
+
+        // set origin
         if ((!is_origin_set && !is_target_set) || (is_origin_set && is_target_set)) {
             putchar('O');
 
@@ -123,6 +234,8 @@ void on_mouse(void) {
 
             TARGET_SELECT_X = -1;
             TARGET_SELECT_Y = -1;
+        
+        // set target
         } else if (is_origin_set && !is_target_set && !is_same_origin_tile) {
             putchar('T');
 
@@ -174,9 +287,11 @@ void draw_board(void) {
                 } 
             }
 
-            set_screen_addr(pieces_images[tiles[i][j].piece_type % 10]);
-            set_screen_xy(BOARD_MARGIN + i * 16 + 4, BOARD_MARGIN + j * 16 + 4);
-            draw_sprite(tiles[i][j].piece_color);
+            if (tiles[i][j].piece_type != EMPTY) {
+                set_screen_addr(pieces_images[tiles[i][j].piece_type % 10]);
+                set_screen_xy(BOARD_MARGIN + i * 16 + 4, BOARD_MARGIN + j * 16 + 4);
+                draw_sprite(tiles[i][j].piece_color);
+            }
         }
     }
 }

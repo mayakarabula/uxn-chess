@@ -193,14 +193,14 @@
     #0001 ;tiles_ STH2kr INC2 INC2 LDA2 #0050 MUL2 ADD2 STH2kr LDA2 #000a MUL2 ADD2 #0008 ADD2 STA2
 
   &end.17
-    STH2kr LDA2 #8000 EOR2 #8002 LTH2 ?&then.19
-    #0015 !&end.19
-
-  &then.19
-    #000f
+    STH2kr LDA2 #8000 EOR2 #8002 LTH2 #00 EQU ?&end.19
+    #000f ;tiles_ STH2kr INC2 INC2 LDA2 #0050 MUL2 ADD2 STH2kr LDA2 #000a MUL2 ADD2 #0006 ADD2 STA2
 
   &end.19
-    ;tiles_ STH2kr INC2 INC2 LDA2 #0050 MUL2 ADD2 STH2kr LDA2 #000a MUL2 ADD2 #0006 ADD2 STA2
+    #8005 STH2kr LDA2 #8000 EOR2 LTH2 #00 EQU ?&end.20
+    #0015 ;tiles_ STH2kr INC2 INC2 LDA2 #0050 MUL2 ADD2 STH2kr LDA2 #000a MUL2 ADD2 #0006 ADD2 STA2
+
+  &end.20
 
   &continue.2
     STH2kr LDA2k INC2k ROT2 STA2
@@ -219,13 +219,13 @@
     POP2r JMP2r
 
 @on_mouse_ ( -- result* )
-    OVR2r LIT2r 0010 SUB2r #92 DEI2 STH2kr #000e ADD2 STA2
-    #94 DEI2 STH2kr #000c ADD2 STA2
-    ;mouse_ #2c DEO2 STH2kr #000e ADD2 LDA2 #28 DEO2 STH2kr #000c ADD2 LDA2 #2a DEO2 #0f2f DEO #96 DEI #00 SWP #0001 NEQ2 ?&end.1
+    OVR2r LIT2r 0012 SUB2r #92 DEI2 STH2kr #0010 ADD2 STA2
+    #94 DEI2 STH2kr #000e ADD2 STA2
+    ;mouse_ #2c DEO2 STH2kr #0010 ADD2 LDA2 #28 DEO2 STH2kr #000e ADD2 LDA2 #2a DEO2 #0f2f DEO #96 DEI #00 SWP #0001 NEQ2 ?&end.1
+    STH2kr #0010 ADD2 LDA2 #0010 SUB2 #0010 sdiv/b_pos
+    STH2kr #000c ADD2 STA2
     STH2kr #000e ADD2 LDA2 #0010 SUB2 #0010 sdiv/b_pos
     STH2kr #000a ADD2 STA2
-    STH2kr #000c ADD2 LDA2 #0010 SUB2 #0010 sdiv/b_pos
-    STH2kr #0008 ADD2 STA2
     #8000 ;ORIGIN_SELECT_X_ LDA2 #8000 EOR2 GTH2 #00 SWP #01 EOR #0000 EQU2 ?&false.2
     #8000 ;ORIGIN_SELECT_y_ LDA2 #8000 EOR2 GTH2 #00 SWP #01 EOR #0000 EQU2 ?&false.2
     #0001 !&end.2
@@ -234,7 +234,7 @@
     #0000
 
   &end.2
-    STH2kr #0006 ADD2 STA2
+    STH2kr #0008 ADD2 STA2
     #8000 ;TARGET_SELECT_X_ LDA2 #8000 EOR2 GTH2 #00 SWP #01 EOR #0000 EQU2 ?&false.3
     #8000 ;TARGET_SELECT_Y_ LDA2 #8000 EOR2 GTH2 #00 SWP #01 EOR #0000 EQU2 ?&false.3
     #0001 !&end.3
@@ -243,27 +243,27 @@
     #0000
 
   &end.3
-    STH2kr #0004 ADD2 STA2
-    STH2kr #000a ADD2 LDA2 ;ORIGIN_SELECT_X_ LDA2 NEQ2 ?&false.4
-    STH2kr #0008 ADD2 LDA2 ;ORIGIN_SELECT_y_ LDA2 NEQ2 ?&false.4
+    STH2kr #0006 ADD2 STA2
+    STH2kr #000c ADD2 LDA2 ;ORIGIN_SELECT_X_ LDA2 NEQ2 ?&false.4
+    STH2kr #000a ADD2 LDA2 ;ORIGIN_SELECT_y_ LDA2 NEQ2 ?&false.4
     #0001 !&end.4
 
   &false.4
     #0000
 
   &end.4
-    STH2kr INC2 INC2 STA2
-    STH2kr #000a ADD2 LDA2 ;TARGET_SELECT_X_ LDA2 NEQ2 ?&false.5
-    STH2kr #0008 ADD2 LDA2 ;TARGET_SELECT_Y_ LDA2 NEQ2 ?&false.5
+    STH2kr #0004 ADD2 STA2
+    STH2kr #000c ADD2 LDA2 ;TARGET_SELECT_X_ LDA2 NEQ2 ?&false.5
+    STH2kr #000a ADD2 LDA2 ;TARGET_SELECT_Y_ LDA2 NEQ2 ?&false.5
     #0001 !&end.5
 
   &false.5
     #0000
 
   &end.5
-    STH2kr STA2
+    STH2kr INC2 INC2 STA2
     ;IS_WHITE_TURN_ LDA2 #0001 NEQ2 ?&false.9
-    STH2kr #0004 ADD2 LDA2 #0000 EQU2 ?&false.9
+    STH2kr #0006 ADD2 LDA2 #0000 EQU2 ?&false.9
     #0001 !&end.9
 
   &false.9
@@ -271,7 +271,7 @@
 
   &end.9
     #0000 EQU2 ?&false.8
-    ;tiles_ STH2kr #000a ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #0008 ADD2 LDA2 #000a MUL2 ADD2 #0006 ADD2 LDA2 #0015 NEQ2 #00 EQU ?&false.8
+    ;tiles_ STH2kr #000c ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #000a ADD2 LDA2 #000a MUL2 ADD2 #0006 ADD2 LDA2 #0015 NEQ2 #00 EQU ?&false.8
     #0001 !&end.8
 
   &false.8
@@ -280,7 +280,7 @@
   &end.8
     ORA ?&true.7
     ;IS_WHITE_TURN_ LDA2 INC2 ORA ?&false.11
-    STH2kr #0004 ADD2 LDA2 #0000 EQU2 ?&false.11
+    STH2kr #0006 ADD2 LDA2 #0000 EQU2 ?&false.11
     #0001 !&end.11
 
   &false.11
@@ -288,7 +288,7 @@
 
   &end.11
     #0000 EQU2 ?&false.10
-    ;tiles_ STH2kr #000a ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #0008 ADD2 LDA2 #000a MUL2 ADD2 #0006 ADD2 LDA2 #000f NEQ2 #00 EQU ?&false.10
+    ;tiles_ STH2kr #000c ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #000a ADD2 LDA2 #000a MUL2 ADD2 #0006 ADD2 LDA2 #000f NEQ2 #00 EQU ?&false.10
     #0001 !&end.10
 
   &false.10
@@ -306,8 +306,24 @@
     #4218 DEO #0000 !&return
 
   &end.6
-    STH2kr #0006 ADD2 LDA2 ORA ?&false.14
-    STH2kr #0004 ADD2 LDA2 ORA ?&false.14
+    ;IS_WHITE_TURN_ LDA2 #0001 NEQ2 ?&false.16
+    STH2kr #0006 ADD2 LDA2 ORA ?&false.16
+    #0001 !&end.16
+
+  &false.16
+    #0000
+
+  &end.16
+    #0000 EQU2 ?&false.15
+    STH2kr #0008 ADD2 LDA2 #0000 EQU2 ?&false.15
+    #0001 !&end.15
+
+  &false.15
+    #0000
+
+  &end.15
+    #0000 EQU2 ?&false.14
+    ;tiles_ STH2kr #000c ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #000a ADD2 LDA2 #000a MUL2 ADD2 #0006 ADD2 LDA2 #0015 NEQ2 ?&false.14
     #0001 !&end.14
 
   &false.14
@@ -315,24 +331,16 @@
 
   &end.14
     ORA ?&true.13
-    STH2kr #0006 ADD2 LDA2 #0000 EQU2 ?&false.15
-    STH2kr #0004 ADD2 LDA2 #0000 EQU2 ?&false.15
-    #0001 !&end.15
+    ;IS_WHITE_TURN_ LDA2 INC2 ORA ?&false.19
+    STH2kr #0006 ADD2 LDA2 ORA ?&false.19
+    #0001 !&end.19
 
-  &false.15
+  &false.19
     #0000
 
-  &end.15
-    ORA ?&true.13
-    #0000 !&end.13
-
-  &true.13
-    #0001
-
-  &end.13
-    ORA ?&then.12
-    STH2kr #0006 ADD2 LDA2 #0000 EQU2 ?&false.18
-    STH2kr #0004 ADD2 LDA2 ORA ?&false.18
+  &end.19
+    #0000 EQU2 ?&false.18
+    STH2kr #0008 ADD2 LDA2 #0000 EQU2 ?&false.18
     #0001 !&end.18
 
   &false.18
@@ -340,31 +348,334 @@
 
   &end.18
     #0000 EQU2 ?&false.17
-    STH2kr INC2 INC2 LDA2 ORA ?&false.17
+    ;tiles_ STH2kr #000c ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #000a ADD2 LDA2 #000a MUL2 ADD2 #0006 ADD2 LDA2 #000f NEQ2 ?&false.17
     #0001 !&end.17
 
   &false.17
     #0000
 
   &end.17
-    #0000 EQU2 ?&end.16
-    #5418 DEO STH2kr #000a ADD2 LDA2 ;TARGET_SELECT_X_ STA2
-    STH2kr #0008 ADD2 LDA2 ;TARGET_SELECT_Y_ STA2
-    ;tiles_ ;ORIGIN_SELECT_X_ LDA2 #0050 MUL2 ADD2 ;ORIGIN_SELECT_y_ LDA2 #000a MUL2 ADD2 #0008 ADD2 LDA2 ;tiles_ STH2kr #000a ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #0008 ADD2 LDA2 #000a MUL2 ADD2 #0008 ADD2 STA2
-    ;tiles_ ;ORIGIN_SELECT_X_ LDA2 #0050 MUL2 ADD2 ;ORIGIN_SELECT_y_ LDA2 #000a MUL2 ADD2 #0006 ADD2 LDA2 ;tiles_ STH2kr #000a ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #0008 ADD2 LDA2 #000a MUL2 ADD2 #0006 ADD2 STA2
+    ORA ?&true.13
+    #0000 !&end.13
+
+  &true.13
+    #0001
+
+  &end.13
+    #0000 EQU2 ?&end.12
+    ;tiles_ STH2kr #000c ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #000a ADD2 LDA2 #000a MUL2 ADD2 #0008 ADD2 LDA2 #0000 NEQ2 #00 EQU ?&end.20
+    STH2kr #000c ADD2 LDA2 ;ORIGIN_SELECT_X_ STA2
+    STH2kr #000a ADD2 LDA2 ;ORIGIN_SELECT_y_ STA2
+
+  &end.20
+    #0000 !&return
+
+  &end.12
+    STH2kr #0008 ADD2 LDA2 #0000 EQU2 ?&false.22
+    STH2kr #0006 ADD2 LDA2 ORA ?&false.22
+    #0001 !&end.22
+
+  &false.22
+    #0000
+
+  &end.22
+    #0000 EQU2 ?&end.21
+    #0000 STH2kr STA2
+    ;tiles_ ;ORIGIN_SELECT_X_ LDA2 #0050 MUL2 ADD2 ;ORIGIN_SELECT_y_ LDA2 #000a MUL2 ADD2 #0008 ADD2 LDA2 #0001 NEQ2 ?&end.23
+    ;tiles_ ;ORIGIN_SELECT_X_ LDA2 #0050 MUL2 ADD2 ;ORIGIN_SELECT_y_ LDA2 #000a MUL2 ADD2 #0006 ADD2 LDA2 #0015 EQU2 ?&then.24
+    STH2kr #000c ADD2 LDA2 ;ORIGIN_SELECT_X_ LDA2 NEQ2 ?&end.25
+    STH2kr #000a ADD2 LDA2 ;ORIGIN_SELECT_y_ LDA2 INC2 EQU2 #00 ORA ?&true.27
+    STH2kr #000a ADD2 LDA2 ;ORIGIN_SELECT_y_ LDA2 INC2 INC2 NEQ2 ?&false.28
+    ;ORIGIN_SELECT_y_ LDA2 #0001 NEQ2 ?&false.28
+    #0001 !&end.28
+
+  &false.28
+    #0000
+
+  &end.28
+    ORA ?&true.27
+    #0000 !&end.27
+
+  &true.27
+    #0001
+
+  &end.27
+    #0000 EQU2 ?&end.26
+    ;tiles_ STH2kr #000c ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #000a ADD2 LDA2 #000a MUL2 ADD2 #0008 ADD2 LDA2 ORA ?&end.29
+    #0001 STH2kr STA2
+
+  &end.29
+
+  &end.26
+
+  &end.25
+    STH2kr #000c ADD2 LDA2 ;ORIGIN_SELECT_X_ LDA2 #0001 SUB2 EQU2 #00 ORA ?&true.31
+    STH2kr #000c ADD2 LDA2 ;ORIGIN_SELECT_X_ LDA2 INC2 EQU2 #00 ORA ?&true.31
+    #0000 !&end.31
+
+  &true.31
+    #0001
+
+  &end.31
+    #0000 EQU2 ?&end.30
+    STH2kr #000a ADD2 LDA2 ;ORIGIN_SELECT_y_ LDA2 INC2 NEQ2 ?&end.32
+    ;tiles_ STH2kr #000c ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #000a ADD2 LDA2 #000a MUL2 ADD2 #0006 ADD2 LDA2 #0015 NEQ2 ?&end.33
+    #0001 STH2kr STA2
+
+  &end.33
+
+  &end.32
+
+  &end.30
+    !&end.24
+
+  &then.24
+    STH2kr #000c ADD2 LDA2 ;ORIGIN_SELECT_X_ LDA2 NEQ2 ?&end.34
+    STH2kr #000a ADD2 LDA2 ;ORIGIN_SELECT_y_ LDA2 #0001 SUB2 EQU2 #00 ORA ?&true.36
+    STH2kr #000a ADD2 LDA2 ;ORIGIN_SELECT_y_ LDA2 #0002 SUB2 NEQ2 ?&false.37
+    ;ORIGIN_SELECT_y_ LDA2 #0006 NEQ2 ?&false.37
+    #0001 !&end.37
+
+  &false.37
+    #0000
+
+  &end.37
+    ORA ?&true.36
+    #0000 !&end.36
+
+  &true.36
+    #0001
+
+  &end.36
+    #0000 EQU2 ?&end.35
+    ;tiles_ STH2kr #000c ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #000a ADD2 LDA2 #000a MUL2 ADD2 #0008 ADD2 LDA2 ORA ?&end.38
+    #0001 STH2kr STA2
+
+  &end.38
+
+  &end.35
+
+  &end.34
+    STH2kr #000c ADD2 LDA2 ;ORIGIN_SELECT_X_ LDA2 #0001 SUB2 EQU2 #00 ORA ?&true.40
+    STH2kr #000c ADD2 LDA2 ;ORIGIN_SELECT_X_ LDA2 INC2 EQU2 #00 ORA ?&true.40
+    #0000 !&end.40
+
+  &true.40
+    #0001
+
+  &end.40
+    #0000 EQU2 ?&end.39
+    STH2kr #000a ADD2 LDA2 ;ORIGIN_SELECT_y_ LDA2 #0001 SUB2 NEQ2 ?&end.41
+    ;tiles_ STH2kr #000c ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #000a ADD2 LDA2 #000a MUL2 ADD2 #0006 ADD2 LDA2 #000f NEQ2 ?&end.42
+    #0001 STH2kr STA2
+
+  &end.42
+
+  &end.41
+
+  &end.39
+
+  &end.24
+
+  &end.23
+    ;tiles_ ;ORIGIN_SELECT_X_ LDA2 #0050 MUL2 ADD2 ;ORIGIN_SELECT_y_ LDA2 #000a MUL2 ADD2 #0008 ADD2 LDA2 #0002 NEQ2 ?&end.43
+
+  &end.43
+    ;tiles_ ;ORIGIN_SELECT_X_ LDA2 #0050 MUL2 ADD2 ;ORIGIN_SELECT_y_ LDA2 #000a MUL2 ADD2 #0008 ADD2 LDA2 #0003 NEQ2 ?&end.44
+    STH2kr #000a ADD2 LDA2 ;ORIGIN_SELECT_y_ LDA2 #0002 SUB2 EQU2 #00 ORA ?&true.46
+    STH2kr #000a ADD2 LDA2 ;ORIGIN_SELECT_y_ LDA2 INC2 INC2 EQU2 #00 ORA ?&true.46
+    #0000 !&end.46
+
+  &true.46
+    #0001
+
+  &end.46
+    #0000 EQU2 ?&end.45
+    STH2kr #000c ADD2 LDA2 ;ORIGIN_SELECT_X_ LDA2 #0001 SUB2 EQU2 #00 ORA ?&true.48
+    STH2kr #000c ADD2 LDA2 ;ORIGIN_SELECT_X_ LDA2 INC2 EQU2 #00 ORA ?&true.48
+    #0000 !&end.48
+
+  &true.48
+    #0001
+
+  &end.48
+    #0000 EQU2 ?&end.47
+    ;tiles_ STH2kr #000c ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #000a ADD2 LDA2 #000a MUL2 ADD2 #0008 ADD2 LDA2 #0000 EQU2 #00 ORA ?&true.50
+    ;tiles_ STH2kr #000c ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #000a ADD2 LDA2 #000a MUL2 ADD2 #0006 ADD2 LDA2 ;tiles_ ;ORIGIN_SELECT_X_ LDA2 #0050 MUL2 ADD2 ;ORIGIN_SELECT_y_ LDA2 #000a MUL2 ADD2 #0006 ADD2 LDA2 NEQ2 #00 ORA ?&true.50
+    #0000 !&end.50
+
+  &true.50
+    #0001
+
+  &end.50
+    #0000 EQU2 ?&end.49
+    #0001 STH2kr STA2
+
+  &end.49
+
+  &end.47
+
+  &end.45
+    STH2kr #000a ADD2 LDA2 ;ORIGIN_SELECT_y_ LDA2 #0001 SUB2 EQU2 #00 ORA ?&true.52
+    STH2kr #000a ADD2 LDA2 ;ORIGIN_SELECT_y_ LDA2 INC2 EQU2 #00 ORA ?&true.52
+    #0000 !&end.52
+
+  &true.52
+    #0001
+
+  &end.52
+    #0000 EQU2 ?&end.51
+    STH2kr #000c ADD2 LDA2 ;ORIGIN_SELECT_X_ LDA2 #0002 SUB2 EQU2 #00 ORA ?&true.54
+    STH2kr #000c ADD2 LDA2 ;ORIGIN_SELECT_X_ LDA2 INC2 INC2 EQU2 #00 ORA ?&true.54
+    #0000 !&end.54
+
+  &true.54
+    #0001
+
+  &end.54
+    #0000 EQU2 ?&end.53
+    ;tiles_ STH2kr #000c ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #000a ADD2 LDA2 #000a MUL2 ADD2 #0008 ADD2 LDA2 #0000 EQU2 #00 ORA ?&true.56
+    ;tiles_ STH2kr #000c ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #000a ADD2 LDA2 #000a MUL2 ADD2 #0006 ADD2 LDA2 ;tiles_ ;ORIGIN_SELECT_X_ LDA2 #0050 MUL2 ADD2 ;ORIGIN_SELECT_y_ LDA2 #000a MUL2 ADD2 #0006 ADD2 LDA2 NEQ2 #00 ORA ?&true.56
+    #0000 !&end.56
+
+  &true.56
+    #0001
+
+  &end.56
+    #0000 EQU2 ?&end.55
+    #0001 STH2kr STA2
+
+  &end.55
+
+  &end.53
+
+  &end.51
+
+  &end.44
+    ;tiles_ ;ORIGIN_SELECT_X_ LDA2 #0050 MUL2 ADD2 ;ORIGIN_SELECT_y_ LDA2 #000a MUL2 ADD2 #0008 ADD2 LDA2 #0004 NEQ2 ?&end.57
+
+  &end.57
+    ;tiles_ ;ORIGIN_SELECT_X_ LDA2 #0050 MUL2 ADD2 ;ORIGIN_SELECT_y_ LDA2 #000a MUL2 ADD2 #0008 ADD2 LDA2 #0005 NEQ2 ?&end.58
+
+  &end.58
+    ;tiles_ ;ORIGIN_SELECT_X_ LDA2 #0050 MUL2 ADD2 ;ORIGIN_SELECT_y_ LDA2 #000a MUL2 ADD2 #0008 ADD2 LDA2 #0006 NEQ2 ?&end.59
+    STH2kr #000c ADD2 LDA2 ;ORIGIN_SELECT_X_ LDA2 #0001 SUB2 EQU2 #00 ORA ?&true.62
+    STH2kr #000c ADD2 LDA2 ;ORIGIN_SELECT_X_ LDA2 INC2 EQU2 #00 ORA ?&true.62
+    #0000 !&end.62
+
+  &true.62
+    #0001
+
+  &end.62
+    ORA ?&true.61
+    STH2kr #000c ADD2 LDA2 ;ORIGIN_SELECT_X_ LDA2 EQU2 #00 ORA ?&true.61
+    #0000 !&end.61
+
+  &true.61
+    #0001
+
+  &end.61
+    #0000 EQU2 ?&end.60
+    STH2kr #000a ADD2 LDA2 ;ORIGIN_SELECT_y_ LDA2 #0001 SUB2 EQU2 #00 ORA ?&true.65
+    STH2kr #000a ADD2 LDA2 ;ORIGIN_SELECT_y_ LDA2 INC2 EQU2 #00 ORA ?&true.65
+    #0000 !&end.65
+
+  &true.65
+    #0001
+
+  &end.65
+    ORA ?&true.64
+    STH2kr #000a ADD2 LDA2 ;ORIGIN_SELECT_y_ LDA2 EQU2 #00 ORA ?&true.64
+    #0000 !&end.64
+
+  &true.64
+    #0001
+
+  &end.64
+    #0000 EQU2 ?&end.63
+    ;tiles_ STH2kr #000c ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #000a ADD2 LDA2 #000a MUL2 ADD2 #0008 ADD2 LDA2 #0000 EQU2 #00 ORA ?&true.67
+    ;tiles_ STH2kr #000c ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #000a ADD2 LDA2 #000a MUL2 ADD2 #0006 ADD2 LDA2 ;tiles_ ;ORIGIN_SELECT_X_ LDA2 #0050 MUL2 ADD2 ;ORIGIN_SELECT_y_ LDA2 #000a MUL2 ADD2 #0006 ADD2 LDA2 NEQ2 #00 ORA ?&true.67
+    #0000 !&end.67
+
+  &true.67
+    #0001
+
+  &end.67
+    #0000 EQU2 ?&end.66
+    #0001 STH2kr STA2
+
+  &end.66
+
+  &end.63
+
+  &end.60
+
+  &end.59
+    STH2kr LDA2 ORA ?&end.68
+    #4c18 DEO #0000 !&return
+
+  &end.68
+
+  &end.21
+    STH2kr #0008 ADD2 LDA2 ORA ?&false.71
+    STH2kr #0006 ADD2 LDA2 ORA ?&false.71
+    #0001 !&end.71
+
+  &false.71
+    #0000
+
+  &end.71
+    ORA ?&true.70
+    STH2kr #0008 ADD2 LDA2 #0000 EQU2 ?&false.72
+    STH2kr #0006 ADD2 LDA2 #0000 EQU2 ?&false.72
+    #0001 !&end.72
+
+  &false.72
+    #0000
+
+  &end.72
+    ORA ?&true.70
+    #0000 !&end.70
+
+  &true.70
+    #0001
+
+  &end.70
+    ORA ?&then.69
+    STH2kr #0008 ADD2 LDA2 #0000 EQU2 ?&false.75
+    STH2kr #0006 ADD2 LDA2 ORA ?&false.75
+    #0001 !&end.75
+
+  &false.75
+    #0000
+
+  &end.75
+    #0000 EQU2 ?&false.74
+    STH2kr #0004 ADD2 LDA2 ORA ?&false.74
+    #0001 !&end.74
+
+  &false.74
+    #0000
+
+  &end.74
+    #0000 EQU2 ?&end.73
+    #5418 DEO STH2kr #000c ADD2 LDA2 ;TARGET_SELECT_X_ STA2
+    STH2kr #000a ADD2 LDA2 ;TARGET_SELECT_Y_ STA2
+    ;tiles_ ;ORIGIN_SELECT_X_ LDA2 #0050 MUL2 ADD2 ;ORIGIN_SELECT_y_ LDA2 #000a MUL2 ADD2 #0008 ADD2 LDA2 ;tiles_ STH2kr #000c ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #000a ADD2 LDA2 #000a MUL2 ADD2 #0008 ADD2 STA2
+    ;tiles_ ;ORIGIN_SELECT_X_ LDA2 #0050 MUL2 ADD2 ;ORIGIN_SELECT_y_ LDA2 #000a MUL2 ADD2 #0006 ADD2 LDA2 ;tiles_ STH2kr #000c ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #000a ADD2 LDA2 #000a MUL2 ADD2 #0006 ADD2 STA2
     #0000 ;tiles_ ;ORIGIN_SELECT_X_ LDA2 #0050 MUL2 ADD2 ;ORIGIN_SELECT_y_ LDA2 #000a MUL2 ADD2 #0008 ADD2 STA2
     ;IS_WHITE_TURN_ LDA2k #ffff MUL2 SWP2 STA2
 
-  &end.16
-    !&end.12
+  &end.73
+    !&end.69
 
-  &then.12
-    #4f18 DEO STH2kr #000a ADD2 LDA2 ;ORIGIN_SELECT_X_ STA2
-    STH2kr #0008 ADD2 LDA2 ;ORIGIN_SELECT_y_ STA2
+  &then.69
+    #4f18 DEO STH2kr #000c ADD2 LDA2 ;ORIGIN_SELECT_X_ STA2
+    STH2kr #000a ADD2 LDA2 ;ORIGIN_SELECT_y_ STA2
     #ffff ;TARGET_SELECT_X_ STA2
     #ffff ;TARGET_SELECT_Y_ STA2
 
-  &end.12
+  &end.69
 
   &end.1
     #0000
@@ -462,8 +773,11 @@
     POP2 !&begin.9
 
   &break.9
+    ;tiles_ STH2kr #0008 ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #0006 ADD2 LDA2 #000a MUL2 ADD2 #0008 ADD2 LDA2 #0000 NEQ2 #00 EQU ?&end.12
     ;pieces_images_ ;tiles_ STH2kr #0008 ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #0006 ADD2 LDA2 #000a MUL2 ADD2 #0008 ADD2 LDA2 #000a OVR2 OVR2 sdiv/b_pos
     MUL2 SUB2 #30 SFT2 ADD2 #2c DEO2 STH2kr #0008 ADD2 LDA2 #40 SFT2 #0014 ADD2 #28 DEO2 STH2kr #0006 ADD2 LDA2 #40 SFT2 #0014 ADD2 #2a DEO2 ;tiles_ STH2kr #0008 ADD2 LDA2 #0050 MUL2 ADD2 STH2kr #0006 ADD2 LDA2 #000a MUL2 ADD2 #0006 ADD2 LDA2 NIP #2f DEO
+
+  &end.12
 
   &continue.4
     STH2kr #0006 ADD2 LDA2k INC2k ROT2 STA2
