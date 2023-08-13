@@ -1,6 +1,6 @@
 # uxn-chess
 ## introduction
-I have started this project as a fun way to try out [chibicc](https://github.com/lynn/chibicc) - "a small c compiler for [uxn](https://wiki.xxiivv.com/site/uxn.html)".
+I have started this project as a fun way to try out [chibicc](https://github.com/lynn/chibicc) - "a small c compiler for [uxn](https://100r.co/site/uxn.html)".
 
 Therefore the base code is written in C with mappings to uxn provided by chibicc such as `set_screen_addr`.
 
@@ -11,11 +11,15 @@ To run this app you need [chibicc](https://github.com/lynn/chibicc), from there 
 ./run.sh PATH_TO_YOUR_CHESS_UXN/chess.c
 ```
 
+Alternatively you can just run the rom provided in this repository with uxn emulator (I have tried it with `uxnemu`) or compile the TAL source code with `uxnasm`
+
+Information on how to run uxn programs can be found on [100 rabbits page](https://100r.co/site/uxn.html).
+
 ## what is implemented
 - [x] board drawn
 - [x] pieces drawn
 - [x] keep order - first white pieces, then black, and so on
-- [ ] standard moves - IN PROGRESS
+- [ ] standard moves - IN PROGRESS (pawns, knights ready)
 - [ ] special moves - en passant, pawn promotion, castles
 - [ ] check
 - [ ] check mate
